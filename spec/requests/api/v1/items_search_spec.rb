@@ -43,5 +43,9 @@ describe "Find endpoints" do
     result.each do |item|
       expect([@item3, @item4].include? Item.find(item[:id])).to be_truthy
     end
+
+    result.each do |item|
+      expect([@item1, @item2].include? Item.find(item[:id])).to be_falsey
+    end
   end
 end
