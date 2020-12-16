@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "Find endpoints" do
+describe "Item find endpoints" do
   before :each do
     @merchant1 = create(:merchant)
     @merchant2 = create(:merchant)
@@ -25,6 +25,40 @@ describe "Find endpoints" do
     expect(result[:attributes][:name]).to eq(@item1.name)
     expect(result[:attributes][:name]).to_not eq(@item2.name)
     expect(result[:attributes][:name]).to_not eq(@item3.name)
+  end
+
+  it "can find an item by description regardless of case or fragmentation" do
+    attribute = :description
+    value = "hAnDhEld"
+
+    get "/api/v1/items/find?#{attribute}=#{value}"
+
+    expect(response).to be_successful
+
+    parsed_data = JSON.parse(response.body, symbolize_names: true)
+    result = parsed_data[:data]
+
+    expect(result[:id].to_i).to eq(@item1.id)
+    expect(result[:attributes][:description]).to eq(@item1.description)
+    expect(result[:attributes][:description]).to_not eq(@item2.description)
+    expect(result[:attributes][:description]).to_not eq(@item3.description)
+  end
+
+  it "can find an item by unit price regardless of case or fragmentation" do
+    attribute = :unit_price
+    value = 299
+
+    get "/api/v1/items/find?#{attribute}=#{value}"
+
+    expect(response).to be_successful
+
+    parsed_data = JSON.parse(response.body, symbolize_names: true)
+    result = parsed_data[:data]
+
+    expect(result[:id].to_i).to eq(@item1.id)
+    expect(result[:attributes][:unit_price]).to eq(@item1.unit_price)
+    expect(result[:attributes][:unit_price]).to_not eq(@item2.unit_price)
+    expect(result[:attributes][:unit_price]).to_not eq(@item3.unit_price)
   end
 
   it "can find multiple items by name regardless of case or fragmentation" do
