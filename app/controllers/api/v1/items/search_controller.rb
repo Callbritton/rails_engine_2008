@@ -1,7 +1,6 @@
 class Api::V1::Items::SearchController < ApplicationController
   def show
-    item = Item.find_by("#{attribute} ILIKE '%#{value}%'")
-    render json: ItemSerializer.new(item)
+    render json: ItemSerializer.new(Item.attribute_filter(attribute, value))
   end
 
   def index
