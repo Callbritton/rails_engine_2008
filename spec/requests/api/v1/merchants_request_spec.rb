@@ -36,7 +36,7 @@ describe "Merchants API" do
   it "can create a new merchant" do
     merchant_params = { name: "Sheetz"}
     headers = {"CONTENT_TYPE" => "application/json"}
-
+# This ensures that the request is sent as JSON
     post "/api/v1/merchants", headers: headers, params: JSON.generate(merchant_params)
     created_merchant = Merchant.last
 
