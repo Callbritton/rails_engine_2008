@@ -50,4 +50,50 @@ describe "Business Intelligence" do
 
     expect(result[0][:attributes][:name]).to eq(@merchant1.name)
   end
+
+  it "returns merchants with the most items sold" do
+    quantity = 3
+
+    get "/api/v1/merchants/most_items?quantity=#{quantity}"
+    expect(response).to be_successful
+
+    parsed_data = JSON.parse(response.body, symbolize_names: true)
+    result = parsed_data[:data]
+
+    expect(result).to be_an(Array)
+    expect(result.size).to eq(3)
+
+    result.each do |merchant|
+      expect([@merchant1, @merchant2, @merchant3].include? Merchant.find(merchant[:id])).to be_truthy
+    end
+
+    result.each do |merchant|
+      expect([@merchant4].include? Merchant.find(merchant[:id])).to be_falsey
+    end
+
+    expect(result[0][:attributes][:name]).to eq(@merchant1.name)
+  end
+
+  it "returns total revenue for all merchants between a given date range" do
+    quantity = 3
+
+    get "/api/v1/merchants/most_items?quantity=#{quantity}"
+    expect(response).to be_successful
+
+    parsed_data = JSON.parse(response.body, symbolize_names: true)
+    result = parsed_data[:data]
+
+    expect(result).to be_an(Array)
+    expect(result.size).to eq(3)
+
+    result.each do |merchant|
+      expect([@merchant1, @merchant2, @merchant3].include? Merchant.find(merchant[:id])).to be_truthy
+    end
+
+    result.each do |merchant|
+      expect([@merchant4].include? Merchant.find(merchant[:id])).to be_falsey
+    end
+
+    expect(result[0][:attributes][:name]).to eq(@merchant1.name)
+  end
 end
