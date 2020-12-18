@@ -65,5 +65,21 @@ RSpec.describe Merchant, type: :model do
 
       expect(result[0].name).to eq(@merchant1.name)
     end
+
+    it ".revenue_across_range" do
+      start_date = Date.today
+      end_date = Date.today + 2.days
+
+      result = Merchant.revenue_across_range(start_date, end_date)
+
+      expect(result).to be_a(Float)
+      expect(result).to eq(30000.0)
+    end
+
+    it "total_revenue" do
+      result = @merchant1.total_revenue
+      expect(result).to be_a(Float)
+      expect(result).to eq(16000.0)
+    end
   end
 end
