@@ -62,23 +62,6 @@ describe "Item find endpoints" do
     expect(result[:attributes][:unit_price]).to_not eq(@item3.unit_price)
   end
 
-  xit "can find an item by created at" do
-    attribute = "created_at"
-    value = "Wed, 16 Dec 2020 00:00:00 UTC +00:00"
-
-    get "/api/v1/items/find?#{attribute}=#{value}"
-
-    expect(response).to be_successful
-
-    parsed_data = JSON.parse(response.body, symbolize_names: true)
-    result = parsed_data[:data]
-
-    expect(result[:id].to_i).to eq(@item1.id)
-    expect(result[:attributes][:created_at]).to eq(@item1.created_at)
-    expect(result[:attributes][:created_at]).to_not eq(@item2.created_at)
-    expect(result[:attributes][:created_at]).to_not eq(@item3.created_at)
-  end
-
 # Multi Finders
 
   it "can find multiple items by name regardless of case or fragmentation" do
