@@ -75,25 +75,28 @@ describe "Business Intelligence" do
   end
 
   it "returns total revenue for all merchants between a given date range" do
-    quantity = 3
+    start_date = Date.today
+    end_date = Date.today + 2.days
 
-    get "/api/v1/merchants/most_items?quantity=#{quantity}"
+    get "/api/v1/revenue?start=#{start_date}&end=#{end_date}"
     expect(response).to be_successful
 
     parsed_data = JSON.parse(response.body, symbolize_names: true)
+
     result = parsed_data[:data]
+    expect(result).to be_a(Hash)
+    expect(result[:attributes][:revenue]).to eq(30000.0)
+  end
 
-    expect(result).to be_an(Array)
-    expect(result.size).to eq(3)
+  it "returns total revenue for a given merchant" do
 
-    result.each do |merchant|
-      expect([@merchant1, @merchant2, @merchant3].include? Merchant.find(merchant[:id])).to be_truthy
-    end
+    get "/api/v1/merchants/#{@merchant1.id}/revenue"
+    expect(response).to be_successful
 
-    result.each do |merchant|
-      expect([@merchant4].include? Merchant.find(merchant[:id])).to be_falsey
-    end
+    parsed_data = JSON.parse(response.body, symbolize_names: true)
 
-    expect(result[0][:attributes][:name]).to eq(@merchant1.name)
+    result = parsed_data[:data]
+    expect(result).to be_a(Hash)
+    expect(result[:attributes][:revenue]).to eq(16000.0)
   end
 end
