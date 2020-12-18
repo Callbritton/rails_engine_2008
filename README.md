@@ -5,7 +5,7 @@ Th# Rails Engine
 
 ## Background and Description
 
-"Rails Engine"/"Rails Driver" is a mock E-Commerce Application that utilizes service-oriented architecture, where the backend (Rails Engine) and the front end (Rails Driver) communicate via APIs. The primary purpose of the project is to expose the data (via Rails Engine) that powers the "site" through an API that the front end will consume.
+"Rails Engine"/"Rails Driver" is a mock E-Commerce Application that utilizes service-oriented architecture, where the backend (Rails Engine) and the front end (Rails Driver) communicate via APIs. The primary purpose of the project is to expose and format the data (JSON) for the front end to consume.
 
 ## Learning Goals
 
