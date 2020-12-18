@@ -28,7 +28,7 @@ Both projects require:
 
 ### Setup Rails Engine:
 
-* Fork this [repository](https://github.com/Callbritton/rails_engine)
+* Fork this [repository](https://github.com/Callbritton/rails_engine_2008)
 * Clone your fork
 * From the command line, install gems and set up your DB:
     * `bundle install`
