@@ -1,6 +1,7 @@
 # README
 
-Th# Rails Engine
+# Rails Engine
+
 ### BE Mod 3 Week 3 Solo Project
 
 ## Background and Description
